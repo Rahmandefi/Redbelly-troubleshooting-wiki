@@ -55,6 +55,8 @@ try {
 
 Users can also add the chain in one click from https://chainlist.org/chain/153.
 
+A related point of confusion once the network is added: RBNT is the network's **native gas coin**, not an ERC-20 token, so there is no contract address to import and MetaMask's "Import tokens" flow is not needed. If a guide asks you for an RBNT contract address, it is describing wrapped RBNT on a different chain, which is a separate asset.
+
 **Prevention**
 
 Every Redbelly dApp should ship the `wallet_addEthereumChain` fallback above in its connect flow. Do not assume the user has the network configured.
@@ -65,7 +67,7 @@ Every Redbelly dApp should ship the `wallet_addEthereumChain` fallback above in 
 
 **Symptom**
 
-The balance in MetaMask does not match the explorer, sent transactions do not appear, or every new transaction immediately fails even though the account has funds.
+The balance in MetaMask does not match the explorer, sent transactions do not appear, or every new transaction immediately fails even though the account has funds. A variant reported by RBNT holders: the balance appears for a split second when switching networks and then vanishes, while the explorer shows the funds are untouched.
 
 **Root Cause**
 
@@ -75,7 +77,8 @@ MetaMask caches account state (nonce, balance, activity) per network. After a te
 
 1. First confirm the truth on-chain: look the address up on https://redbelly.testnet.routescan.io. The explorer reflects actual state.
 2. In MetaMask: Settings > Advanced > **Clear activity tab data**. This resets cached activity and nonce for the selected account and network. It does not touch your keys or funds.
-3. If the balance is still wrong, remove the Redbelly network entry and re-add it with the current RPC URL (entry 5), then reselect the account.
+3. If the balance is still wrong, remove the Redbelly network entry and re-add it with the current RPC URL (entry 5), then reselect the account. Community members have confirmed this fixes the disappearing-balance variant.
+4. If MetaMask keeps misbehaving on Redbelly, an ERC-20 compatible alternative such as Rabby works with the same seed or key and the same network details, and is what network moderators suggest for persistent display glitches.
 
 **Prevention**
 
