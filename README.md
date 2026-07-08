@@ -66,6 +66,8 @@ Network endpoints, chain IDs and explorer details in this guide were checked aga
 - Entries 12 and 13 are backed by a live deployment: [`0xd583cbaf72849Ad868445C4D025dc49dF84358d6`](https://redbelly.testnet.routescan.io/address/0xd583cbaf72849Ad868445C4D025dc49dF84358d6), deployed with the entry 12 config and source-verified on Routescan with the entry 13 config.
 - Entry 14's guidance was tested by deploying the same contract three times with solc 0.8.24 targeting paris, shanghai and cancun: all three run correctly on Testnet, including the shanghai build carrying `PUSH0` opcodes.
 
+How coverage was validated against real community support questions is documented in the [methodology appendix](docs/methodology.md).
+
 ## Contributing
 
 Spotted an error pattern that is not covered, or a fix that no longer works? Open an issue or a pull request, or raise it in the Redbelly Discord developer channel. New entries should follow the same structure: Symptom, Root Cause, Solution, Prevention, with exact commands rather than vague advice.
