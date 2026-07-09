@@ -68,6 +68,8 @@ Network endpoints, chain IDs and explorer details in this guide were checked aga
 
 How coverage was validated against real community support questions is documented in the [methodology appendix](docs/methodology.md).
 
+This guide is also published as a single article on [Dev.to](https://dev.to/rahmandefi/redbelly-network-troubleshooting-fixes-for-the-21-most-common-developer-errors-17i); this repository is the maintained, canonical version.
+
 ## Contributing
 
 Spotted an error pattern that is not covered, or a fix that no longer works? Open an issue or a pull request, or raise it in the Redbelly Discord developer channel. New entries should follow the same structure: Symptom, Root Cause, Solution, Prevention, with exact commands rather than vague advice.
