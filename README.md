@@ -1,6 +1,6 @@
 # Redbelly Network Developer Troubleshooting Wiki
 
-**Practical fixes for the 21 most common errors when building on Redbelly Testnet and Mainnet.**
+**Practical fixes for the 22 most common errors when building on Redbelly Testnet and Mainnet.**
 
 Redbelly's official documentation covers architecture and SDK reference material well, but when a deployment fails late at night you need the exact error message, the reason it happened, and the command that fixes it. This wiki documents the recurring roadblocks developers raise in the Redbelly Developer Discord and Telegram channels, each with a concrete, tested fix.
 
@@ -47,12 +47,13 @@ Search this table by the error text you are seeing.
 | KYC wallet callback never arrives in local dev | [18. Wallet callbacks / ngrok](docs/eligibility-sdk.md#18-onboarding-wallet-callback-never-arrives-in-local-development) |
 | `hasChainPermission` returns false for a verified user | [19. Eligibility check false](docs/eligibility-sdk.md#19-haschainpermission-returns-false-for-a-verified-user) |
 | Faucet not sending RBNT | [20. Faucet problems](docs/faucet.md#20-testnet-faucet-not-distributing-rbnt) |
+| Token or RBNT shows a placeholder icon in the wallet | [22. Token logos not displaying](docs/wallet.md#22-token-or-rbnt-logo-not-displaying-in-wallets) |
 
 ## Categories
 
 - [Account Access and Permissioning](docs/account-access.md) (entry 21, but read it first)
 - [Network and RPC](docs/network-rpc.md) (entries 1 to 4)
-- [Wallet and MetaMask](docs/wallet.md) (entries 5 and 6)
+- [Wallet and MetaMask](docs/wallet.md) (entries 5, 6 and 22)
 - [Gas and Transactions](docs/gas-transactions.md) (entries 7 to 11)
 - [Contract Deployment](docs/deployment.md) (entries 12 to 14)
 - [EligibilitySDK and Onboarding SDKs](docs/eligibility-sdk.md) (entries 15 to 19)
@@ -69,6 +70,15 @@ Network endpoints, chain IDs and explorer details in this guide were checked aga
 How coverage was validated against real community support questions is documented in the [methodology appendix](docs/methodology.md).
 
 This guide is also published as a single article on [Dev.to](https://dev.to/rahmandefi/redbelly-network-troubleshooting-fixes-for-the-21-most-common-developer-errors-17i); this repository is the maintained, canonical version.
+
+## Acknowledgements
+
+The following community members reviewed the wiki or contributed feedback that shaped its entries during the validation round in the Redbelly Discord (July 2026):
+
+- **Daniel Bressoud** confirmed the canonical network configuration (the `governors.*` RPC endpoints, chain IDs and explorer URLs documented in the quick-reference table) and shared the guide with the Redbelly team.
+- **Njay** verified the testnet faucet documented in entry 20 is active, prompted a live re-verification of both RPC endpoints, and raised the token logo question that became entry 22 and the companion [Redbelly Wallet Helper](https://rahmandefi.github.io/redbelly-wallet-helper/) tool.
+
+Thank you. Changes arising from community feedback are recorded in the [changelog](CHANGELOG.md).
 
 ## Contributing
 
