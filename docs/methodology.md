@@ -20,6 +20,7 @@ The support threads reviewed clustered around the following themes:
 - **MetaMask display and state glitches.** Balances showing as unknown, or appearing for a moment and vanishing while the explorer shows the funds intact. Moderators suggest re-adding the network or switching to another wallet. Addressed in entry 6, which incorporates the community-confirmed fixes.
 - **Gas estimation failures that are really contract reverts.** Reward claim attempts failing with "cannot estimate gas; transaction may fail or may require manual gas limit" where the underlying cause was an exhausted contract balance. Addressed in entry 9.
 - **KYC and network access requirements.** Whether identity verification is needed to hold or move RBNT, and what access actually gates. Addressed in entry 21, together with the full enablement flow.
+- **Token logos not displaying in wallets.** Raised directly during the community validation round: tokens on Redbelly (and RBNT itself on manually added networks) show placeholder icons. Addressed in entry 22, added from that feedback, together with a companion tool that performs the EIP-747 registration.
 
 ## Live verification summary
 

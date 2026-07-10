@@ -2,7 +2,7 @@
 
 [Back to index](../README.md)
 
-Problems connecting MetaMask and other wallets to Redbelly. Entries 5 and 6.
+Problems connecting MetaMask and other wallets to Redbelly. Entries 5, 6 and 22.
 
 ---
 
@@ -83,6 +83,61 @@ MetaMask caches account state (nonce, balance, activity) per network. After a te
 **Prevention**
 
 Do not share one private key between MetaMask and automated scripts on the same network; the nonce cache will constantly desync (see entry 7 in [Gas and Transactions](gas-transactions.md)). Use a dedicated deployer key for scripts.
+
+---
+
+### 22. Token or RBNT logo not displaying in wallets
+
+*Added from community feedback in the Redbelly Discord, July 2026.*
+
+**Symptom**
+
+RBNT or a project token deployed on Redbelly shows a generic placeholder icon in wallets such as MetaMask, OKX Wallet or Zerion, even though the balance is correct. The same asset may show its logo correctly on an exchange but not in a self-custody wallet.
+
+**Root Cause**
+
+Wallets do not read logos from the chain. Each wallet renders logos from its own asset registry, and most registries are populated from a small set of sources: CoinGecko and CoinMarketCap listings, the wallet vendor's own submission process, or community asset repositories such as `trustwallet/assets`. Two situations produce the placeholder icon:
+
+1. The network was added to the wallet manually as a custom network. Most wallets render a generic icon for custom networks and their assets regardless of any listing, because the wallet has no registry entry to consult for that chain.
+2. The token itself has no entry in the registry the wallet uses. This is the usual case for newly deployed project tokens.
+
+RBNT itself is listed on CoinGecko and CoinMarketCap, so wallets and exchanges that support Redbelly natively display its logo; wallets where Redbelly was added as a custom network generally will not. The Redbelly chain entries in the [ethereum-lists/chains](https://github.com/ethereum-lists/chains) registry (chains 151 and 153) already carry the network icon, which is what Chainlist and wallets ingesting that registry display.
+
+**Solution**
+
+The immediate fix is EIP-747: a dApp can call `wallet_watchAsset` with the token's address, symbol, decimals and a logo image URL, and supported wallets (MetaMask, Rabby, OKX Wallet and others) register the token and display the logo straight away. Two ways to use it:
+
+1. Use the [Redbelly Wallet Helper](https://rahmandefi.github.io/redbelly-wallet-helper/), a free hosted tool that reads the token's metadata from the chain and makes the `wallet_watchAsset` call for you; it also adds the Redbelly networks with one click. Source: [github.com/Rahmandefi/redbelly-wallet-helper](https://github.com/Rahmandefi/redbelly-wallet-helper).
+2. Or put an "Add token to wallet" button on your own project site:
+
+```js
+await window.ethereum.request({
+  method: "wallet_watchAsset",
+  params: {
+    type: "ERC20",
+    options: {
+      address: "0xYourTokenAddress",
+      symbol: "TKN",
+      decimals: 18,
+      image: "https://yoursite.com/token-logo.png",
+    },
+  },
+});
+```
+
+Note that `wallet_watchAsset` registers the token on the wallet's currently selected network, so switch (or `wallet_addEthereumChain`, entry 5) to Redbelly first.
+
+To make the logo appear everywhere by default, without users clicking anything, work through the public registries in this order:
+
+1. Verify the contract source on Routescan (entry 13), then submit the token information and logo to Routescan; their documentation directs token update requests to their support contact. Explorer listing is the foundation other registries check.
+2. Apply for a CoinGecko or CoinMarketCap listing once the token meets their criteria. Many wallet registries ingest from these automatically.
+3. Submit to the specific wallets that matter to your users: OKX Wallet has its own asset submission process, and Trust Wallet accepts pull requests to the `trustwallet/assets` repository for chains it supports.
+
+There is no per-user fix for the custom-network placeholder icon itself; it resolves only when the wallet vendor adds native support for the chain.
+
+**Prevention**
+
+Treat registry submissions as part of the token launch checklist rather than an afterthought: contract verification and explorer token info at deployment, listing applications once eligible. Ship an "Add token" button (or link the Wallet Helper) so users get the branded token from day one, and set expectations that custom-network icons stay generic until wallets support Redbelly natively.
 
 ---
 
